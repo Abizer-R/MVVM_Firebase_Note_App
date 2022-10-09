@@ -9,8 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmfirebasenoteapp.R
 import com.example.mvvmfirebasenoteapp.databinding.FragmentNoteListingBinding
 import com.example.mvvmfirebasenoteapp.viewmodel.NoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NoteListingFragment : Fragment() {
 
     private val TAG = NoteListingFragment::class.java.simpleName
@@ -27,7 +28,12 @@ class NoteListingFragment : Fragment() {
 
         noteViewModel.getNotes()
         noteViewModel.notes.observe(viewLifecycleOwner) {
-
+            // TODO: DUMMY DATA TESTING
+            var dummy = ""
+            it.forEach {
+                dummy += "\n$it"
+            }
+            binding.tvTest.text = dummy
         }
 
         return binding.root
