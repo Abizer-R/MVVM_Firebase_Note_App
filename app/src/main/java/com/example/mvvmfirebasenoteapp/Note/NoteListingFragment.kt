@@ -5,20 +5,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.mvvmfirebasenoteapp.R
 import com.example.mvvmfirebasenoteapp.databinding.FragmentNoteListingBinding
+import com.example.mvvmfirebasenoteapp.viewmodel.NoteViewModel
 
 
 class NoteListingFragment : Fragment() {
 
     private val TAG = NoteListingFragment::class.java.simpleName
     private lateinit var binding: FragmentNoteListingBinding
+    private lateinit var noteViewModel: NoteViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNoteListingBinding.inflate(layoutInflater)
+
+        noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+
+        noteViewModel.getNotes()
+        noteViewModel.notes.observe(viewLifecycleOwner) {
+
+        }
+
         return binding.root
     }
 }
